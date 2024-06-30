@@ -1,0 +1,15 @@
+[submodule "extern/glew-cmake"]
+	path = extern/glew-cmake
+	url = https://github.com/Perlmint/glew-cmake
+[submodule "extern/imgui"]
+	path = extern/imgui
+	url = https://github.com/ocornut/imgui
+[submodule "extern/SDL"]
+	path = extern/SDL
+	url = https://github.com/libsdl-org/SDL
+[submodule "extern/HighFive"]
+	path = extern/HighFive
+	url = https://github.com/BlueBrain/HighFive
+[submodule "extern/implot"]
+	path = extern/implot
+	url = https://github.com/epezent/implot
