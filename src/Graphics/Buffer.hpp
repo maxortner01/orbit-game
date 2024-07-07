@@ -25,7 +25,7 @@ namespace Graphics
         template<typename T>
         std::vector<T> getData() const
         {
-            SPACE_ASSERT( _size % sizeof(T) == 0, "Type incompatibility" );
+            ASSERT( _size % sizeof(T) == 0, "Type incompatibility" );
             std::vector<T> vec(_size / sizeof(T));
             getData(&*vec.begin());
             return vec;

@@ -7,6 +7,7 @@
 #include <implot.h>
 #include <GL/glew.h>
 #include <Math.hpp>
+#include <sstream>
 
 #ifndef FILES_DIR
 #define FILES_DIR "."
@@ -23,15 +24,17 @@ MainContext::MainContext() :
     ASSERT(!SDL_Init(SDL_INIT_VIDEO), "Error initializing SDL");
 
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 4 );
-    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 6 );
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
     SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+    SDL_GL_SetAttribute( SDL_GL_CONTEXT_FLAGS, SDL_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG );
 
-    window = SDL_CreateWindow("Hello", 1920U, 1080U, SDL_WINDOW_OPENGL);
+    window = SDL_CreateWindow("Hello", 1280U, 720U, SDL_WINDOW_OPENGL);
     context = SDL_GL_CreateContext( window );
 
+    glewExperimental = GL_TRUE;
     ASSERT(glewInit() == GLEW_OK, "Error initializing OpenGL");
 
-    _aspect = 1920.f / 1080.f;
+    _aspect = 1280.f / 720.f;
 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -121,7 +124,7 @@ void MainContext::build_coord_mesh()
     graphics_data->vao.addVertexAttribute(1, 4, sizeof(Vertex), sizeof(Math::Vec3f));
 
     {
-        std::vector<Vertex> vertices(10, {});
+        std::vector<Vertex> vertices(10);
         graphics_data->indicator_lines.getVertexBuffer()->setData(vertices);
         graphics_data->indicator_lines.addVertexAttribute(0, 3, sizeof(Vertex), 0);
         graphics_data->indicator_lines.addVertexAttribute(1, 4, sizeof(Vertex), sizeof(Math::Vec3f));
