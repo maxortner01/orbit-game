@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Def.hpp"
-#include "FlightData.hpp"
 
 #include "Graphics/Buffer.hpp"
 #include "Graphics/Shader.hpp"
@@ -35,34 +34,45 @@ private:
     SDL_GLContext context;
     bool _open;
 
-    void build_coord_mesh();
-
     void draw_ui();
+    void update(double dt);
     void draw_bg();
-    void load_files();
-
-    // Flight data file information
-    std::vector<std::filesystem::path> avaliable_files;
-    int selected;
-    std::string current_dir;
-    std::optional<FlightData> flight_data;
 
     // Camera orientation
     float _aspect;
     Math::Vec3<Math::Angle> rotation;
     float distance;
     Math::Vec3f offset;
-    bool follow{false};
 
-    // Graphics Data
     struct GraphicsData
     {
         Graphics::Program program;
-        Graphics::VAO vao, indicator_lines;
 
-        GraphicsData(Graphics::Program&& p) : program(std::move(p))
+        GraphicsData(Graphics::Program&& p) :
+            program(std::move(p))
         {   }
     };
 
+    struct Planet
+    {
+        // Air density
+        float p,k,p_0;
+        float getAirDensity(float altitude)
+        {
+            return p_0 * ( altitude > p ? 0.f : powf( 1.0 - (1.0 / p) * std::max<float>(altitude, 0.f), k ) );
+        }
+
+        float r;
+        Math::Vec3f position;
+        Math::Vec3f velocity;
+    } planet;
+
+    struct Object
+    {
+        float r;
+        Math::Vec3f position, velocity, thrust;
+    } object;
+
     std::optional<GraphicsData> graphics_data;
+    std::optional<Graphics::VAO> sphere;
 };

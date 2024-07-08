@@ -56,6 +56,13 @@ namespace Graphics
         VAO();
         ~VAO();
 
+        VAO(VAO&& v) :
+            vertices(std::move(v.vertices)),
+            indices(std::move(v.indices)),
+            _handle([](auto& handle){ const auto val = handle; handle = 0; return val; }(v._handle)),
+            _vertex_count(v._vertex_count)
+        {   }
+
         bool hasVertices() const { return (indices ? true : false); }
         const auto& getVertexBuffer()
         {

@@ -19,7 +19,7 @@ set(SOURCES
     ${CMAKE_SOURCE_DIR}/src/Math/Angle.cpp
 
     ${CMAKE_SOURCE_DIR}/src/MainContext.cpp
-    ${CMAKE_SOURCE_DIR}/src/FlightData.cpp)
+    ${CMAKE_SOURCE_DIR}/src/Primitives.cpp)
 
 set(IMGUI_SOURCES
     ${CMAKE_SOURCE_DIR}/extern/imgui/imgui.h
@@ -41,4 +41,4 @@ set(IMPLOT_SOURCES
 add_executable(main main.cpp ${SOURCES} ${IMGUI_SOURCES} ${IMPLOT_SOURCES})
 target_link_libraries(main PRIVATE libglew_static SDL3::SDL3 HighFive)
 target_include_directories(main PRIVATE ${CMAKE_SOURCE_DIR}/extern/imgui ${CMAKE_SOURCE_DIR}/extern/implot ${CMAKE_SOURCE_DIR}/src)
-target_compile_definitions(main PRIVATE -DFILES_DIR="${CMAKE_SOURCE_DIR}/data" -DRES_DIR="${CMAKE_SOURCE_DIR}/res")
+target_compile_definitions(main PRIVATE -DRES_DIR="${CMAKE_SOURCE_DIR}/res")
